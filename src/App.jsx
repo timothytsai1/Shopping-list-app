@@ -21,8 +21,8 @@ function App() {
             quantity: 1,
             name: inputValue,
             completed: false,
-          })
-        } else{
+          });
+        } else {
           updateGroceryList[itemIndex].quantity++;
         }
         setGroceryItems(updateGroceryList);
@@ -31,15 +31,29 @@ function App() {
     }
   };
 
+  const handleRemoveGroceryItem = (itemName) => {
+    const updateGroceryList = [...groceryItems].filter(
+      (item) => item.name !== itemName
+    );
+    setGroceryItems(updateGroceryList);
+  };
+
   const renderGroceryList = () => {
     return groceryItems.map((item) => (
       <li key={item.name}>
         <div className="container">
           <input type="checkbox" />
-          <p>{item.name} <span>x{item.quantity}</span></p>
+          <p>
+            {item.name} <span>x{item.quantity}</span>
+          </p>
         </div>
         <div>
-          <button className="remove-button">X</button>
+          <button
+            className="remove-button"
+            onClick={() => handleRemoveGroceryItem(item.name)}
+          >
+            X
+          </button>
         </div>
       </li>
     ));
